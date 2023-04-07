@@ -3,10 +3,11 @@
 ## Project Contributors:
 ### Professor: Dr. DeGood
 ### Developers: Emmanuel Pasteur, Madison Bavosa, EJ Gasataya
+### Last Updated: 4/7/23 (for submission on Phase 5a)
 
 ## Installation Guide
 
-### Creating Database; Migrating Raw CSV Files into the database
+### Creating Database & Migrating Raw CSV Files into the database
 * Prerequisites, ensure that the following packages are installed:
 ```
 # install python pip and psycopg2 packages
