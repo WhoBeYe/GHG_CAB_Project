@@ -15,6 +15,8 @@ cur = conn.cursor()
 #     )
 # """)
 
+# Testing 
+
 cur.execute("INSERT INTO users VALUES (%s, %s, %s, %s)", (10, 'hello@dataquest.io', 'Some Name', '123 fake st.'))
 conn.commit()
 
