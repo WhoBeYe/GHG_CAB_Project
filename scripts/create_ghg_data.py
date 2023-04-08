@@ -1,0 +1,30 @@
+# This file is just a demo file on how to load CSV data into the database using psycopg2
+import psycopg2
+
+# Link the database called demo_database1
+conn = psycopg2.connect("host=localhost dbname=CAB_database user=postgres")
+cur = conn.cursor()
+
+# This command can only be executed once after the table has been created, comment out
+cur.execute("""
+    CREATE TABLE ghg_table(
+        municipality varchar(50),
+        county varchar(50),
+        year integer,
+        total_personal_vehicles integer,
+        number_of_EVs varchar(10),
+        percent_of_EVs varchar(10),
+        PRIMARY KEY (municipality, county, year)
+    )
+""")
+
+with open('/home/lion/github-classroom/TCNJ-degoodj/cab-project-6/data_files/adjusted_ghg_data.csv', 'r') as f:
+    
+    next(f)
+    cur.copy_from(f, 'ghg_table', sep=',')
+
+conn.commit()
+
+cur.execute('SELECT * FROM ghg_table')
+
+all = cur.fetchall()
