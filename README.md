@@ -16,6 +16,7 @@ sudo pacman -S python-pip python-psycopg2
 
 # install flask
 pip install flask
+# "pip3" for some
 ```
 This project utlizes raw CSV files converted from Excel spreadsheets that will be utilized by the Python Script.
 After installing the required packages, you will need to create a new database with a specific name (CAB_database), since the scripts assume a certain database name. Enter the following commands to create a new database:
