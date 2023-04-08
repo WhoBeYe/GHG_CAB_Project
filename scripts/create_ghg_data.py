@@ -25,7 +25,7 @@ cur.execute("""
         single_long_haul decimal,
         single_short_haul decimal,
         transit_bus decimal,
-        total decimal
+        ghg_total decimal
     )
 """)
 

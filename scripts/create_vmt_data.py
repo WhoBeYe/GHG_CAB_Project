@@ -25,7 +25,7 @@ cur.execute("""
         single_long_haul bigint,
         single_short_haul bigint,
         transit_bus bigint,
-        total bigint
+        vmt_total bigint
     )
 """)
 
