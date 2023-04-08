@@ -1,4 +1,4 @@
-# This file is just a demo file on how to load CSV data into the database using psycopg2
+# This file is a script on how to load CSV data into the database using psycopg2
 import psycopg2
 
 # Link the database called demo_database1
