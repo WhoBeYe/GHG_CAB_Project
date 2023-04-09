@@ -1,0 +1,9 @@
+DROP VIEW ghg_vmt_merged;
+DROP VIEW zip_code_merged;
+DROP VIEW ZIP_CODE;
+DROP TABLE mun2_temp;
+DROP TABLE ghg_table_temp;
+DROP TABLE vmt_table_temp;
+DROP TABLE contains_2_temp;
+DROP TABLE contains_2_main;
+DROP TABLE EV_RATIO;
