@@ -13,8 +13,7 @@ cur.execute("""
         year integer,
         total_personal_vehicles integer,
         number_of_EVs varchar(10),
-        percent_of_EVs varchar(10),
-        PRIMARY KEY (municipality, county, year)
+        percent_of_EVs varchar(10)
     )
 """)
 
