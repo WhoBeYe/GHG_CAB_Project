@@ -3,7 +3,7 @@
 ## Project Contributors:
 ### Professor: Dr. DeGood
 ### Developers: Emmanuel Pasteur, Madison Bavosa, EJ Gasataya
-### Last Updated: 4/7/23 (for submission on Phase 5a)
+### Last Updated: 4/9/23 (for submission on Phase 5a)
 
 ## Installation Guide
 
@@ -42,6 +42,34 @@ psql CAB_database
 \d
 SELECT *
 FROM <relation_name>;
+```
+### Execution of DDL (Data Definition Language) and DML (Data Manipulation Language) Scripts
+The DDL scripts are of .sql extension. After creating tables containing the CSV elements, the following scripts will create more tables pertaining to this data (Specified in Phase IV)
+
+```
+# Be sure to enter the database if not done already
+psql CAB_database
+\i contains_DDL_script.sql;
+\i mun_DDL_script.sql;
+\i vehicle_DDL_script.sql;
+```
+
+The following DML script contains some example queries we propose to utilize in the web application in Phase 5b. Execution of this file is similar to the scripts above:
+
+```
+# Be sure to enter the database if not done already
+psql CAB_database
+\i example_DML_script.sql;
+```
+* Note, if the terminal window is small, you won't be able to see all the queries at once. To move down the terminal window, press the "q" button.
+
+### Dropping Tables Script
+To make our testing easier when making these tables, if any mistakes were found in our tables, we can simply run a script where all tables made in the DDL will be dropped. We can then run the same scripts above to reload the tables.
+
+```
+# Be sure to enter the database if not done already
+psql CAB_database
+\i drop_tables.sql
 ```
 
 ## Link to open repository in VSCode Extension
