@@ -26,4 +26,6 @@ FROM vmt_table_temp INNER JOIN contains_2_main
 ON vmt_table_temp.zip = contains_2_main.zip AND vmt_table_temp.mun_name = contains_2_main.mun_name
 WHERE vmt_total > 300000000 AND vmt_total < 500000000 AND total_personal > 50000;
 
-SELECT 
+SELECT contains_2_main.mun_name, contains_2_main.zip, EV_ratio.num_evs, EV_ratio.percentage
+FROM contains_2_main INNER JOIN EV_ratio ON contains_2_main.zip = EV_ratio.zip
+WHERE contains_2_main.zip = '7731';

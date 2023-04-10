@@ -1,4 +1,4 @@
-DROP VIEW ghg_vmt_merged;
+DROP VIEW ghg_vmt_merged CASCADE;
 DROP VIEW zip_code_merged;
 DROP VIEW ZIP_CODE;
 DROP TABLE mun2_temp;
