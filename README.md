@@ -36,7 +36,7 @@ python create_vmt_data.py
 python create_zipcode_data.py
 ```
 
-These files will read the CSV content stored in the data_files sub-directory and create inital table copies of them in the CAB_database database. You can then check that CAB_database contains these tables by typing the following commands:
+These files will read the CSV content stored in the data_files sub-directory and create initial table copies of them in the CAB_database database. You can then check that CAB_database contains these tables by typing the following commands:
 ```
 psql CAB_database
 \d
