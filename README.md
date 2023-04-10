@@ -28,12 +28,12 @@ Check that the database can be be entered into PSQL (Note: there will be no rela
 psql CAB_database
 \q
 ```
-Install this repository & navigate to the scripts directory. Then run the following files:
+Install this repository & navigate to the "scripts" directory. Then run the following files:
 ```
 python create_ev_ownership_data.py
-create_ghg_data.py
-create_vmt_data.py
-create_zipcode_data.py
+python create_ghg_data.py
+python create_vmt_data.py
+python create_zipcode_data.py
 ```
 
 These files will read the CSV content stored in the data_files sub-directory and create inital table copies of them in the CAB_database database. You can then check that CAB_database contains these tables by typing the following commands:
