@@ -7,3 +7,6 @@ DROP TABLE vmt_table_temp;
 DROP TABLE contains_2_temp;
 DROP TABLE contains_2_main;
 DROP TABLE EV_RATIO;
+DROP VIEW get_vehicle_type;
+DROP VIEW get_zip;
+DROP TABLE VEHICLE;
