@@ -12,6 +12,6 @@ GROUP BY (mun_name, zip);
 ALTER TABLE contains_2_main ADD COLUMN vehicle_id SERIAL PRIMARY KEY;
 
 CREATE TABLE EV_RATIO AS
-SELECT total_personal, num_evs, CAST(num_evs AS decimal)/CAST(total_personal AS decimal) * 100 as percentage
+SELECT zip, total_personal, num_evs, CAST(num_evs AS decimal)/CAST(total_personal AS decimal) * 100 as percentage
 FROM contains_2_main
 ORDER BY total_personal;
