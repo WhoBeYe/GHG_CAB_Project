@@ -48,6 +48,7 @@ The DDL scripts are of .sql extension. After creating tables containing the CSV 
 
 ```
 # Be sure to enter the database if not done already
+# Navigate to the sql_files directory first!
 psql CAB_database
 \i mun_DDL_script.sql;
 \i contains_DDL_script.sql;
@@ -58,6 +59,7 @@ The following DML script contains some example queries we propose to utilize in 
 
 ```
 # Be sure to enter the database if not done already
+# Navigate to the sql_files directory first!
 psql CAB_database
 \i example_DML_script.sql;
 ```
@@ -68,9 +70,13 @@ To make our testing easier when making these tables, if any mistakes were found 
 
 ```
 # Be sure to enter the database if not done already
+# Navigate to the sql_files directory first!
 psql CAB_database
 \i drop_tables.sql
 ```
+### Dropping Tables Script
+The "typescript" file is a history file containing the DML commands used for this project.
+
 
 ## Link to open repository in VSCode Extension
 [![Open in Visual Studio Code](https://classroom.github.com/assets/open-in-vscode-c66648af7eb3fe8bc4f294546bfd86ef473780cde1dea487d3c4ff354943c9ae.svg)](https://classroom.github.com/online_ide?assignment_repo_id=10765357&assignment_repo_type=AssignmentRepo)
