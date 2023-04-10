@@ -44,13 +44,13 @@ SELECT *
 FROM <relation_name>;
 ```
 ### Execution of DDL (Data Definition Language) and DML (Data Manipulation Language) Scripts
-The DDL scripts are of .sql extension. After creating tables containing the CSV elements, the following scripts will create more tables pertaining to this data (Specified in Phase IV)
+The DDL scripts are of .sql extension. After creating tables containing the CSV elements, the following scripts will create more tables pertaining to this data (Specified in Phase IV). Please enter the following commands in this order:
 
 ```
 # Be sure to enter the database if not done already
 psql CAB_database
-\i contains_DDL_script.sql;
 \i mun_DDL_script.sql;
+\i contains_DDL_script.sql;
 \i vehicle_DDL_script.sql;
 ```
 
