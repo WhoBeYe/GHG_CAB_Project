@@ -7,7 +7,7 @@
     <body>
 	    <h3>Flask|Python|Psycopg2|PostgreSQL</h3>
 
-	    <h4>ZIP CODE QUERY</h4>
+	    <h4>ZIP CODE QUERY (Remove Later) </h4>
         <form action="/zip-handler" method="POST">
             <div>
                  Enter the following zip code for query!
@@ -17,13 +17,51 @@
         </form>
 
 	    <h4>OBTAINING EV RATIO</h4>
-        <form action="/ev_ratio-handler" method="POST">
+        <form action="/ev_ratio_handler" method="POST">
             <div>
                 Enter a zip code to obtain EV usage
 		        <input type="text" name="zip">
             </div>
                 <input type="submit" value="Submit">
         </form>
+
+        <h4>OBTAINING VMT USAGE from ZIP Code </h4>
+        <form action="/vmt_data_handler" method="POST">
+            <div>
+                Enter MIN. Range for VMT Usage
+		        <input id = "slider" type="range" name="min_vmt" min='0' max='1000000000' step="0.5">
+                <p>Min VMT Range: <output id="value"></output></p>
+            </div>
+            <div>
+                Enter MAX. Range for VMT Usage
+		        <input id = "slider2" type="range" name="max_vmt" min='0' max='1000000000' step="0.5">
+                <p>MAX VMT Range: <output id="value2"></output></p>
+            </div>
+                <input type="submit" value="Submit">
+        </form>
+
+        <!-- JavaScript code for handling slider logic (Get range values) -->
+        <script>
+            
+            // Slider Event for the MIN VMT usage
+            const value = document.querySelector("#value")
+            const input = document.querySelector("#slider")
+            value.textContent = input.value
+            input.addEventListener("input", (event) => {
+                value.textContent = event.target.value
+            })
+            
+            // Slider Event for the MAX VMT usage
+            const value2 = document.querySelector("#value2")
+            const input2 = document.querySelector("#slider2")
+            value2.textContent = input2.value
+            input2.addEventListener("input", (event) => {
+                value2.textContent = event.target.value
+            })
+    
+    
+        </script>
+
     </body>
 
     <!-- minimal styling -->
@@ -36,4 +74,5 @@
             margin: 1% 0;
         }
     </style>
+
 </html>

@@ -58,6 +58,7 @@ from flask import Flask, render_template, request
 # Connect to the PostgreSQL database server
 def connect(query):
     conn = None
+    rows = []
     try:
         # read connection parameters
         params = config()
@@ -94,20 +95,33 @@ app = Flask(__name__)
 def form():
     return render_template('my-form.html')
 
-# handle venue POST and serve result web page (TEST- Remove later)
+# Python route for handling ZIP Code query (REMOVE LATER Testing purposes)
 @app.route('/zip-handler', methods=['POST'])
 def zip_handler():
     rows = connect('SELECT * FROM zip_code WHERE zip = ' + request.form['zip'] + ';')
-    heads = ['zip', 'city']
+    heads = ['Zip Code', 'City Name']
     return render_template('my-result.html', rows=rows, heads=heads)
 
-@app.route('/ev_ratio-handler', methods=['POST'])
+
+# Python route for handling ev-ratio queries
+@app.route('/ev_ratio_handler', methods=['POST'])
 def ev_ratio_handler():
     rows = connect('SELECT contains_2_main.mun_name, contains_2_main.zip, EV_ratio.num_evs, EV_ratio.percentage, contains_2_main.total_personal FROM contains_2_main INNER JOIN EV_ratio ON contains_2_main.zip = EV_ratio.zip WHERE contains_2_main.zip = ' + request.form['zip'] + ';')
     heads = ['Municipality', 'Zip Code', '# Of EVs', 'Ratio of EVs', 'Number of Personal Vehicles']
     return render_template('my-result.html', rows=rows, heads=heads)
 
-
+# Python route for handling VMT Query
+@app.route('/vmt_data_handler', methods=['POST'])
+def vmt_data_handler():
+    rows = connect(
+        'SELECT vmt_table_temp.mun_name, vmt_table_temp.zip, CAST (AVG(CAST (vmt_total AS integer)) AS integer) vmt_total, contains_2_main.total_personal, contains_2_main.num_evs ' + 
+        'FROM vmt_table_temp INNER JOIN contains_2_main ' + 
+        'ON vmt_table_temp.zip = contains_2_main.zip AND vmt_table_temp.mun_name = contains_2_main.mun_name ' +
+        'WHERE vmt_total > ' + request.form['min_vmt']  + ' AND vmt_total < ' + request.form['max_vmt'] + ' ' +
+        'GROUP BY (vmt_table_temp.mun_name, vmt_table_temp.zip, contains_2_main.total_personal, contains_2_main.num_evs);')
+    heads = ['Municipality', 'Zip Code', 'VMT-Total', 'Number of Personal Vehicles', '# OF EVs']
+    return render_template('my-result.html', rows=rows, heads=heads)
+    
 
 # # handle query POST and serve result web page
 # @app.route('/query-handler', methods=['POST'])
