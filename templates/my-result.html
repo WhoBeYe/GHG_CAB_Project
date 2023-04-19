@@ -3,10 +3,11 @@
 <html>
     <head>
         <title>Flask result table using nested for loops</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     </head>
 
     <!-- Add some style to table (OPTIONAL) -->
-    <style type="text/css">
+    <!-- <style type="text/css">
 
     th:tr{
         color: blue;
@@ -20,13 +21,13 @@
         padding: 8px 8px;
         border: 1px solid black;
     }
-    </style>
+    </style> -->
 
     <body>
-        <table>
+        <table class="table table-striped">
             <!-- column header for loop in jinja template -->
             <!-- Used by the flask library, embedded jinja code -->
-            <thead>
+            <thead class = "thead-dark">
                 <tr>
                 {%for head in heads%}
                     <th>{{head}}</th>
