@@ -94,18 +94,26 @@ app = Flask(__name__)
 def form():
     return render_template('my-form.html')
 
-# handle venue POST and serve result web page
-@app.route('/venue-handler', methods=['POST'])
-def venue_handler():
-    rows = connect('SELECT venue_id, title FROM events WHERE venue_id = ' + request.form['venue_id'] + ';')
-    heads = ['venue_id', 'title']
+# handle venue POST and serve result web page (TEST- Remove later)
+@app.route('/zip-handler', methods=['POST'])
+def zip_handler():
+    rows = connect('SELECT * FROM zip_code WHERE zip = ' + request.form['zip'] + ';')
+    heads = ['zip', 'city']
     return render_template('my-result.html', rows=rows, heads=heads)
 
-# handle query POST and serve result web page
-@app.route('/query-handler', methods=['POST'])
-def query_handler():
-    rows = connect(request.form['query'])
-    return render_template('my-result.html', rows=rows)
+@app.route('/ev_ratio-handler', methods=['POST'])
+def ev_ratio_handler():
+    rows = connect('SELECT contains_2_main.mun_name, contains_2_main.zip, EV_ratio.num_evs, EV_ratio.percentage, contains_2_main.total_personal FROM contains_2_main INNER JOIN EV_ratio ON contains_2_main.zip = EV_ratio.zip WHERE contains_2_main.zip = ' + request.form['zip'] + ';')
+    heads = ['Municipality', 'Zip Code', '# Of EVs', 'Ratio of EVs', 'Number of Personal Vehicles']
+    return render_template('my-result.html', rows=rows, heads=heads)
+
+
+
+# # handle query POST and serve result web page
+# @app.route('/query-handler', methods=['POST'])
+# def query_handler():
+#     rows = connect(request.form['query'])
+#     return render_template('my-result.html', rows=rows)
 
 if __name__ == '__main__':
     app.run(debug = True)
