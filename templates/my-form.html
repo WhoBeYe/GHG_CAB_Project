@@ -10,40 +10,65 @@
         
     </head>
     <body>
-	    <h3>Flask|Python|Psycopg2|PostgreSQL</h3>
 
-	    <h4>ZIP CODE QUERY (Remove Later) </h4>
-        <form action="/zip-handler" method="POST">
-            <div>
-                 Enter the following zip code for query!
-                <input type="text" name="zip">
-            </div>
-                <input type="submit" value="Submit">
-        </form>
+        <div class = "text-center">
+            
+            <h1>Sustainable Jersey: Greenhouse Gas & EV Usage Analysis</h1>
+            <p>
+                The purpose of this module is to investigate which municipalities in New Jersey emit high amounts
+                of greenhouse gases, and determining whether the municipality contains a low EV usage based on the ratio
+                between the number of personal vehicles owned, and those who have an electric vehicle.
+            </p>
+            <p>
+                If we observe that the municipality contains high GHG emissisions relative to low EV usage, this suspects that
+                that the amount of EV's should increase in that area.
+            </p>
+        </div>
 
-	    <h4>OBTAINING EV RATIO</h4>
-        <form action="/ev_ratio_handler" method="POST">
-            <div>
-                Enter a zip code to obtain EV usage
-		        <input type="text" name="zip">
-            </div>
-                <input type="submit" value="Submit">
-        </form>
+        <div class = "text-center">
+            
+            <h4>ZIP CODE QUERY</h4>
+            <form action="/zip-handler" method="POST">
+                <div>
+                     Enter the following zip code for query!
+                    <input type="text" name="zip">
+                </div>
+                    <br>
+                    <input type="submit" value="Submit ZIP Code Data">
+            </form>
+        </div>
 
-        <h4>OBTAINING VMT USAGE from ZIP Code </h4>
-        <form action="/vmt_data_handler" method="POST">
-            <div>
-                Enter MIN. Range for VMT Usage
-		        <input id = "slider" type="range" name="min_vmt" min='0' max='1000000000' step="100000">
-                <p>Min VMT Range: <output id="value"></output></p>
-            </div>
-            <div>
-                Enter MAX. Range for VMT Usage
-		        <input id = "slider2" type="range" name="max_vmt" min='0' max='1000000000' step="100000">
-                <p>MAX VMT Range: <output id="value2"></output></p>
-            </div>
-                <input type="submit" value="Submit">
-        </form>
+        <div class = "text-center">
+            
+            <h4>OBTAINING EV RATIO</h4>
+            <form action="/ev_ratio_handler" method="POST">
+                <div>
+                    Enter a zip code to obtain EV usage
+                    <input type="text" name="zip">
+                </div>
+                    <br>
+                    <input type="submit" value="Submit EV Ratio Data">
+            </form>
+        </div>
+
+        <div class = "text-center">
+
+            <h4>OBTAINING VMT USAGE from ZIP Code </h4>
+            <form action="/vmt_data_handler" method="POST">
+                <div>
+                    Enter MIN. Range for VMT Usage
+                    <input id = "slider" type="range" name="min_vmt" min='0' max='1000000000' step="100000">
+                    <p>Min VMT Range: <output id="value"></output></p>
+                </div>
+                <div>
+                    Enter MAX. Range for VMT Usage
+                    <input id = "slider2" type="range" name="max_vmt" min='0' max='1000000000' step="100000">
+                    <p>MAX VMT Range: <output id="value2"></output></p>
+                </div>
+                    <br>
+                    <input type="submit" value="Submit VMT Data">
+            </form>
+        </div>
 
         <!-- JavaScript code for handling slider logic (Get range values) -->
         <script>

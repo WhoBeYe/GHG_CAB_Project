@@ -1,4 +1,10 @@
 body{
-    background-color: blue;
+    background-color: #E2EFE1;
     padding: 50px;
+
+}
+
+.query_option_div{
+    text-align: center;
+    position: absolute;
 }
