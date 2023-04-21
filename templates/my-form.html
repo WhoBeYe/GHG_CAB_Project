@@ -3,70 +3,86 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Flask Example Input Form</title>
-        
+        <title>GHG, VMT, and EV Comparisons</title>
+        <!-- Import the Bootstrap library, local CSS file and Google Fonts -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <link rel="stylesheet" href="/css/styles.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Alegreya+Sans&family=Bebas+Neue&display=swap" rel="stylesheet">
         
     </head>
-    <body>
+    <body class = "main-page-ui">
 
-        <div class = "text-center">
+        <div class = "text-center intro-section rounded">
+
+
+            <img src="/css/SNJ_CertifiedLog_TAGLINE.png" alt="Sustainable Jersey Logo" class="img-thumbnail">
             
-            <h1>Sustainable Jersey: Greenhouse Gas & EV Usage Analysis</h1>
-            <p>
+            <h1 style="color:white">SUSTAINABLE JERSEY: Greenhouse  Gas, VMT, & EV Usage Analysis</h1>
+            <p style ="color: white">
                 The purpose of this module is to investigate which municipalities in New Jersey emit high amounts
                 of greenhouse gases, and determining whether the municipality contains a low EV usage based on the ratio
                 between the number of personal vehicles owned, and those who have an electric vehicle.
             </p>
-            <p>
-                If we observe that the municipality contains high GHG emissisions relative to low EV usage, this suspects that
-                that the amount of EV's should increase in that area.
+            <p style = "color: white;">
+                If we observe that the municipality entry on a table contains high GHG emissisions and Vehicle Miles Traveled relative to low EV usage, this suspects that
+                that car manufacturers should increase the number of EV's in that area. 
             </p>
+
         </div>
 
-        <div class = "text-center">
+        <div class = "text-center query-box rounded">
             
-            <h4>ZIP CODE QUERY</h4>
+            <h2>Zip Code Query</h2>
             <form action="/zip-handler" method="POST">
                 <div>
                      Enter the following zip code for query!
                     <input type="text" name="zip">
                 </div>
                     <br>
-                    <input type="submit" value="Submit ZIP Code Data">
+                    <button type="submit" class="btn btn-primary">Submit ZIP Code Data</button>
             </form>
         </div>
 
-        <div class = "text-center">
+        <div class = "text-center query-box rounded">
             
-            <h4>OBTAINING EV RATIO</h4>
+            <h2>EV Ratio Query</h2>
             <form action="/ev_ratio_handler" method="POST">
                 <div>
                     Enter a zip code to obtain EV usage
                     <input type="text" name="zip">
                 </div>
                     <br>
-                    <input type="submit" value="Submit EV Ratio Data">
+                    <button type="submit" class="btn btn-primary">Submit EV Ratio Data</button>
             </form>
         </div>
 
-        <div class = "text-center">
+        <div class = "text-center query-box rounded">
 
-            <h4>OBTAINING VMT USAGE from ZIP Code </h4>
+            <h2>VMT Usage from ZIP Code </h2>
+            <p style="color: #292929">
+                The goal of this section is to return the list of municipalities 
+                from a given min and max range for GHG emissisions. The values of the sliders is measured in Metric Tons Carbon Dioxide Equivalent,
+                where each slider can range from 0 - (1 x 10e9). The table will also return the ratio between the number of EVs in that municipality, and the total
+                number of personal vehicles in the municipality.
+            </p>
             <form action="/vmt_data_handler" method="POST">
                 <div>
                     Enter MIN. Range for VMT Usage
                     <input id = "slider" type="range" name="min_vmt" min='0' max='1000000000' step="100000">
-                    <p>Min VMT Range: <output id="value"></output></p>
+                    <p>Min VMT Range: <output style="color:#9E1D20;"id="value"></output></p>
                 </div>
+                <br>
                 <div>
                     Enter MAX. Range for VMT Usage
                     <input id = "slider2" type="range" name="max_vmt" min='0' max='1000000000' step="100000">
-                    <p>MAX VMT Range: <output id="value2"></output></p>
+                    <p>MAX VMT Range: <output style="color:#9E1D20;"id="value2"></output></p>
                 </div>
-                    <br>
-                    <input type="submit" value="Submit VMT Data">
+                    <button type="submit" class="btn btn-primary">Submit VMT Data</button>
             </form>
         </div>
 

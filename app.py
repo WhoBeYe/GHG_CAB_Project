@@ -108,7 +108,7 @@ def zip_handler():
 def ev_ratio_handler():
     rows = connect('SELECT contains_2_main.mun_name, contains_2_main.zip, EV_ratio.num_evs, EV_ratio.percentage, contains_2_main.total_personal FROM contains_2_main INNER JOIN EV_ratio ON contains_2_main.zip = EV_ratio.zip WHERE contains_2_main.zip = ' + request.form['zip'] + ';')
     heads = ['Municipality', 'Zip Code', '# Of EVs', 'Ratio of EVs', 'Number of Personal Vehicles']
-    return render_template('my-result.httml', rows=rows, heads=heads)
+    return render_template('my-result.html', rows=rows, heads=heads)
 
 # Python route for handling VMT Query
 @app.route('/vmt_data_handler', methods=['POST'])
