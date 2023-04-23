@@ -18,63 +18,15 @@ sudo pacman -S python-pip python-psycopg2
 pip install flask
 # "pip3" for some
 ```
-This project utlizes raw CSV files converted from Excel spreadsheets that will be utilized by the Python Script.
-After installing the required packages, you will need to create a new database with a specific name (CAB_database), since the scripts assume a certain database name. Enter the following commands to create a new database:
-```
-createdb CAB_database
-```
-Check that the database can be be entered into PSQL (Note: there will be no relations inside yet!)
-```
-psql CAB_database
-\q
-```
-Install this repository & navigate to the "scripts" directory. Then run the following files:
-```
-python create_ev_ownership_data.py
-python create_ghg_data.py
-python create_vmt_data.py
-python create_zipcode_data.py
-```
+To run commands and scripts required to create and populate the table, the user must run the following bash command into the terminal:
 
-These files will read the CSV content stored in the data_files sub-directory and create initial table copies of them in the CAB_database database. You can then check that CAB_database contains these tables by typing the following commands:
-```
-psql CAB_database
-\d
-SELECT *
-FROM <relation_name>;
-```
-### Execution of DDL (Data Definition Language) and DML (Data Manipulation Language) Scripts
-The DDL scripts are of .sql extension. After creating tables containing the CSV elements, the following scripts will create more tables pertaining to this data (Specified in Phase IV). Please enter the following commands in this order:
+'''
+# Make sure that to be in the cab-project-6 directory for this group
+bash bash1.sh
+'''
 
-```
-# Be sure to enter the database if not done already
-# Navigate to the sql_files directory first!
-psql CAB_database
-\i mun_DDL_script.sql;
-\i contains_DDL_script.sql;
-\i vehicle_DDL_script.sql;
-```
-
-The following DML script contains some example queries we propose to utilize in the web application in Phase 5b. Execution of this file is similar to the scripts above:
-
-```
-# Be sure to enter the database if not done already
-# Navigate to the sql_files directory first!
-psql CAB_database
-\i example_DML_script.sql;
-```
-* Note, if the terminal window is small, you won't be able to see all the queries at once. To move down the terminal window, press the "q" button.
-
-### Dropping Tables Script
-To make our testing easier when making these tables, if any mistakes were found in our tables, we can simply run a script where all tables made in the DDL will be dropped. We can then run the same scripts above to reload the tables.
-
-```
-# Be sure to enter the database if not done already
-# Navigate to the sql_files directory first!
-psql CAB_database
-\i drop_tables.sql
-```
-### Dropping Tables Script
+This allows the CSV contents stored in the data_files sub-directory to be read, and 
+stored into the CAB_database based on the DDL amd DML inside the sql scripts. 
 The "typescript" file is a history file containing the DML commands used for this project.
 
 
