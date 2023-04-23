@@ -70,7 +70,6 @@ def vmt_data_handler():
         'GROUP BY (vmt_table_temp.mun_name, vmt_table_temp.zip, contains_2_main.total_personal, contains_2_main.num_evs);')
     heads = ['Municipality', 'Zip Code', 'VMT-Total', 'Number of Personal Vehicles', '# OF EVs']
     return render_template('my-result.html', rows=rows, heads=heads)
-    
 
 # # handle query POST and serve result web page
 # @app.route('/query-handler', methods=['POST'])

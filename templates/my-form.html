@@ -26,7 +26,6 @@
         <!-- Div that contains the main intro page about the description of our project -->
         <div class = "text-center intro-section rounded">
 
-
             <img src="/css/SNJ_CertifiedLog_TAGLINE.png" alt="Sustainable Jersey Logo" class="img-thumbnail">
             
             <h1 style="color:white">SUSTAINABLE JERSEY: Greenhouse  Gas, VMT, & EV Usage Analysis</h1>
@@ -42,6 +41,7 @@
 
         </div>
 
+        <!-- Div that contains entry box for entering zip code; it will return the following cities with the corresponding zip -->
         <div class = "text-center query-box rounded">
             
             <h2>Zip Code Query</h2>
@@ -55,6 +55,8 @@
             </form>
         </div>
 
+        <!-- Div that contains entry box for handling EV Ratio queries. User will enter the zip code and it will return the calculated
+        RATIO based on how many personal vehicles are there in each municipality. -->
         <div class = "text-center query-box rounded">
             
             <h2>EV Ratio Query</h2>
@@ -68,12 +70,14 @@
             </form>
         </div>
 
+        <!-- Div that contains SLIDERS as query input to grab the ranges of VMT calulated, and list all the municipalities for each
+        that fall within the min/max range of the sliders. -->
         <div class = "text-center query-box rounded">
 
             <h2>VMT Usage from ZIP Code </h2>
             <p style="color: #292929">
                 The goal of this section is to return the list of municipalities 
-                from a given min and max range for GHG emissisions. The values of the sliders is measured in Metric Tons Carbon Dioxide Equivalent,
+                from a given min and max range for VMT calculations. The values of the sliders is measured in Miles,
                 where each slider can range from 0 - (1 x 10e9). The table will also return the ratio between the number of EVs in that municipality, and the total
                 number of personal vehicles in the municipality.
             </p>
@@ -96,7 +100,7 @@
         <!-- JavaScript code for handling slider logic (Get range values) -->
         <script>
             
-            // Slider Event for the MIN VMcT usage
+            // Slider Event for the MIN VMT usage
             const value = document.querySelector("#value")
             const input = document.querySelector("#slider")
             value.textContent = input.value
@@ -111,7 +115,6 @@
             input2.addEventListener("input", (event) => {
                 value2.textContent = event.target.value
             })
-    
     
         </script>
 
