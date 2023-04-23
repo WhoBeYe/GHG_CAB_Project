@@ -20,10 +20,10 @@ pip install flask
 ```
 To run commands and scripts required to create and populate the table, the user must run the following bash command into the terminal:
 
-'''
+```
 # Make sure that to be in the cab-project-6 directory for this group
 bash bash1.sh
-'''
+```
 
 This allows the CSV contents stored in the data_files sub-directory to be read, and 
 stored into the CAB_database based on the DDL amd DML inside the sql scripts. 
