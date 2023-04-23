@@ -1,4 +1,7 @@
 #! /usr/bin/python3
+# <!-- Madison Bavosa, Emmanuel Pasteur, EJ Gasataya -->
+# <!-- CSC 315 - Databases (UI For Group Project on Sustainable Jersey) -->
+# <!-- Main Python file that will run the application via Flask communication -->
 
 import psycopg2
 from config import config
@@ -55,6 +58,9 @@ def zip_handler():
 # Python route for handling ev-ratio queries
 @app.route('/ev_ratio_handler', methods=['POST'])
 def ev_ratio_handler():
+
+    # cur.execute('SELECT contains_2_main.zip FROM contains_2_main INNER JOIN EV_ratio ON contains_2_main.zip = EV_ratio.zip ORDER BY zip')
+
     rows = connect('SELECT contains_2_main.mun_name, contains_2_main.zip, EV_ratio.num_evs, EV_ratio.percentage, contains_2_main.total_personal FROM contains_2_main INNER JOIN EV_ratio ON contains_2_main.zip = EV_ratio.zip WHERE contains_2_main.zip = ' + request.form['zip'] + ';')
     heads = ['Municipality', 'Zip Code', '# Of EVs', 'Ratio of EVs', 'Number of Personal Vehicles']
     return render_template('my-result.html', rows=rows, heads=heads)
@@ -67,7 +73,8 @@ def vmt_data_handler():
         'FROM vmt_table_temp INNER JOIN contains_2_main ' + 
         'ON vmt_table_temp.zip = contains_2_main.zip AND vmt_table_temp.mun_name = contains_2_main.mun_name ' +
         'WHERE vmt_total > ' + request.form['min_vmt']  + ' AND vmt_total < ' + request.form['max_vmt'] + ' ' +
-        'GROUP BY (vmt_table_temp.mun_name, vmt_table_temp.zip, contains_2_main.total_personal, contains_2_main.num_evs);')
+        'GROUP BY (vmt_table_temp.mun_name, vmt_table_temp.zip, contains_2_main.total_personal, contains_2_main.num_evs) ' +
+        'ORDER BY num_evs;')
     heads = ['Municipality', 'Zip Code', 'VMT-Total', 'Number of Personal Vehicles', '# OF EVs']
     return render_template('my-result.html', rows=rows, heads=heads)
 
