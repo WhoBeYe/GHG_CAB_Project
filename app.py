@@ -59,7 +59,7 @@ def ev_ratio_handler():
     heads = ['Municipality', 'Zip Code', '# Of EVs', 'Ratio of EVs', 'Number of Personal Vehicles']
     return render_template('my-result.html', rows=rows, heads=heads)
 
-# Python route for handling VMT Query
+# Python route for handling VMT Query Range
 @app.route('/vmt_data_handler', methods=['POST'])
 def vmt_data_handler():
     rows = connect(
