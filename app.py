@@ -1,56 +1,5 @@
 #! /usr/bin/python3
 
-"""
-This is an example Flask | Python | Psycopg2 | PostgreSQL
-application that connects to the 7dbs database from Chapter 2 of
-_Seven Databases in Seven Weeks Second Edition_
-by Luc Perkins with Eric Redmond and Jim R. Wilson.
-The CSC 315 Virtual Machine is assumed.
-
-John DeGood
-degoodj@tcnj.edu
-The College of New Jersey
-Spring 2020
-
-----
-
-One-Time Installation
-
-You must perform this one-time installation in the CSC 315 VM:
-
-# install python pip and psycopg2 packages
-sudo pacman -Syu
-sudo pacman -S python-pip python-psycopg2
-
-# install flask
-pip install flask
-
-----
-
-Usage
-
-To run the Flask application, simply execute:
-
-export FLASK_APP=app.py 
-flask run
-# then browse to http://127.0.0.1:5000/
-
-----
-
-References
-
-Flask documentation:  
-https://flask.palletsprojects.com/  
-
-Psycopg documentation:
-https://www.psycopg.org/
-
-This example code is derived from:
-https://www.postgresqltutorial.com/postgresql-python/
-https://scoutapm.com/blog/python-flask-tutorial-getting-started-with-flask
-https://www.geeksforgeeks.org/python-using-for-loop-in-flask/
-"""
-
 import psycopg2
 from config import config
 from flask import Flask, render_template, request
@@ -58,6 +7,7 @@ from flask import Flask, render_template, request
 # Connect to the PostgreSQL database server
 def connect(query):
     conn = None
+    rows = []
     try:
         # read connection parameters
         params = config()
@@ -85,8 +35,8 @@ def connect(query):
     # return the query result from fetchall()
     return rows
  
-# app.py
-app = Flask(__name__)
+# app.py (NEEDED TO CHANGE FOR CSS Linking)
+app = Flask(__name__, template_folder='templates', static_folder = 'css')
 
 
 # serve form web page
@@ -94,18 +44,38 @@ app = Flask(__name__)
 def form():
     return render_template('my-form.html')
 
-# handle venue POST and serve result web page
-@app.route('/venue-handler', methods=['POST'])
-def venue_handler():
+# Python route for handling ZIP Code query (REMOVE LATER Testing purposes)
+@app.route('/zip-handler', methods=['POST'])
+def zip_handler():
     rows = connect('SELECT * FROM zip_code WHERE zip = ' + request.form['zip'] + ';')
-    heads = ['zip', 'city']
+    heads = ['Zip Code', 'City Name']
     return render_template('my-result.html', rows=rows, heads=heads)
 
-# handle query POST and serve result web page
-@app.route('/query-handler', methods=['POST'])
-def query_handler():
-    rows = connect(request.form['query'])
-    return render_template('my-result.html', rows=rows)
+
+# Python route for handling ev-ratio queries
+@app.route('/ev_ratio_handler', methods=['POST'])
+def ev_ratio_handler():
+    rows = connect('SELECT contains_2_main.mun_name, contains_2_main.zip, EV_ratio.num_evs, EV_ratio.percentage, contains_2_main.total_personal FROM contains_2_main INNER JOIN EV_ratio ON contains_2_main.zip = EV_ratio.zip WHERE contains_2_main.zip = ' + request.form['zip'] + ';')
+    heads = ['Municipality', 'Zip Code', '# Of EVs', 'Ratio of EVs', 'Number of Personal Vehicles']
+    return render_template('my-result.html', rows=rows, heads=heads)
+
+# Python route for handling VMT Query Range
+@app.route('/vmt_data_handler', methods=['POST'])
+def vmt_data_handler():
+    rows = connect(
+        'SELECT vmt_table_temp.mun_name, vmt_table_temp.zip, CAST (AVG(CAST (vmt_total AS integer)) AS integer) vmt_total, contains_2_main.total_personal, contains_2_main.num_evs ' + 
+        'FROM vmt_table_temp INNER JOIN contains_2_main ' + 
+        'ON vmt_table_temp.zip = contains_2_main.zip AND vmt_table_temp.mun_name = contains_2_main.mun_name ' +
+        'WHERE vmt_total > ' + request.form['min_vmt']  + ' AND vmt_total < ' + request.form['max_vmt'] + ' ' +
+        'GROUP BY (vmt_table_temp.mun_name, vmt_table_temp.zip, contains_2_main.total_personal, contains_2_main.num_evs);')
+    heads = ['Municipality', 'Zip Code', 'VMT-Total', 'Number of Personal Vehicles', '# OF EVs']
+    return render_template('my-result.html', rows=rows, heads=heads)
+
+# # handle query POST and serve result web page
+# @app.route('/query-handler', methods=['POST'])
+# def query_handler():
+#     rows = connect(request.form['query'])
+#     return render_template('my-result.html', rows=rows)
 
 if __name__ == '__main__':
     app.run(debug = True)

@@ -1,41 +1,123 @@
 <!-- /templates/my-form.html-->
+<!-- Madison Bavosa, Emmanuel Pasteur, EJ Gasataya -->
+<!-- CSC 315 - Databases (UI For Group Project on Sustainable Jersey) -->
+<!-- This is the file that will render the table after the selected query was made -->
 
 <html>
     <head>
-        <title>Flask Example Input Form</title>
+        
+        <meta charset="utf-8">
+        <title>GHG, VMT, and EV Comparisons</title>
+        <!-- Import the Bootstrap library, local CSS file and Google Fonts for styling -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="/css/styles.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Alegreya+Sans&family=Bebas+Neue&display=swap" rel="stylesheet">
+        
     </head>
-    <body>
-	    <h3>Flask|Python|Psycopg2|PostgreSQL</h3>
 
-	    <h4>Example 1 - result table with column headings</h4>
-        <form action="/venue-handler" method="POST">
-            <div>
-                Find all the events at this venue_id
-                <input type="text" name="zip">
-            </div>
-                <input type="submit" value="Submit">
-        </form>
 
-	    <h4>Example 2 - result table without column headings</h4>
-        <form action="/query-handler" method="POST">
-            <div>
-		        Enter any PostgreSQL command, terminated with a semicolon
-                <br />
-	            Example query: SELECT * FROM countries;
-		        <input type="text" name="query">
-            </div>
-                <input type="submit" value="Submit">
-        </form>
+    <body class = "main-page-ui">
+
+        <!-- Div that contains the main intro page about the description of our project -->
+        <div class = "text-center intro-section rounded">
+
+            <img src="/css/SNJ_CertifiedLog_TAGLINE.png" alt="Sustainable Jersey Logo" class="img-thumbnail">
+            
+            <h1 style="color:white">SUSTAINABLE JERSEY: Greenhouse  Gas, VMT, & EV Usage Analysis</h1>
+            <p style ="color: white">
+                The purpose of this module is to investigate which municipalities in New Jersey emit high amounts
+                of greenhouse gases, and determining whether the municipality contains a low EV usage based on the ratio
+                between the number of personal vehicles owned, and those who have an electric vehicle.
+            </p>
+            <p style = "color: white;">
+                If we observe that the municipality entry on a table contains high GHG emissisions and Vehicle Miles Traveled relative to low EV usage, this suspects that
+                that car manufacturers should increase the number of EV's in that area. 
+            </p>
+
+        </div>
+
+        <!-- Div that contains entry box for entering zip code; it will return the following cities with the corresponding zip -->
+        <div class = "text-center query-box rounded">
+            
+            <h2>Zip Code Query</h2>
+            <form action="/zip-handler" method="POST">
+                <div>
+                     Enter the following zip code for query!
+                    <input type="text" name="zip">
+                </div>
+                    <br>
+                    <button type="submit" class="btn btn-primary">Submit ZIP Code Data</button>
+            </form>
+        </div>
+
+        <!-- Div that contains entry box for handling EV Ratio queries. User will enter the zip code and it will return the calculated
+        RATIO based on how many personal vehicles are there in each municipality. -->
+        <div class = "text-center query-box rounded">
+            
+            <h2>EV Ratio Query</h2>
+            <form action="/ev_ratio_handler" method="POST">
+                <div>
+                    Enter a zip code to obtain EV usage
+                    <input type="text" name="zip">
+                </div>
+                    <br>
+                    <button type="submit" class="btn btn-primary">Submit EV Ratio Data</button>
+            </form>
+        </div>
+
+        <!-- Div that contains SLIDERS as query input to grab the ranges of VMT calulated, and list all the municipalities for each
+        that fall within the min/max range of the sliders. -->
+        <div class = "text-center query-box rounded">
+
+            <h2>VMT Usage from ZIP Code </h2>
+            <p style="color: #292929">
+                The goal of this section is to return the list of municipalities 
+                from a given min and max range for VMT calculations. The values of the sliders is measured in Miles,
+                where each slider can range from 0 - (1 x 10e9). The table will also return the ratio between the number of EVs in that municipality, and the total
+                number of personal vehicles in the municipality.
+            </p>
+            <form action="/vmt_data_handler" method="POST">
+                <div>
+                    Enter MIN. Range for VMT Usage
+                    <input id = "slider" type="range" name="min_vmt" min='0' max='1000000000' step="100000">
+                    <p>Min VMT Range: <output style="color:#9E1D20;"id="value"></output></p>
+                </div>
+                <br>
+                <div>
+                    Enter MAX. Range for VMT Usage
+                    <input id = "slider2" type="range" name="max_vmt" min='0' max='1000000000' step="100000">
+                    <p>MAX VMT Range: <output style="color:#9E1D20;"id="value2"></output></p>
+                </div>
+                    <button type="submit" class="btn btn-primary">Submit VMT Data</button>
+            </form>
+        </div>
+
+        <!-- JavaScript code for handling slider logic (Get range values) -->
+        <script>
+            
+            // Slider Event for the MIN VMT usage
+            const value = document.querySelector("#value")
+            const input = document.querySelector("#slider")
+            value.textContent = input.value
+            input.addEventListener("input", (event) => {
+                value.textContent = event.target.value
+            })
+            
+            // Slider Event for the MAX VMT usage
+            const value2 = document.querySelector("#value2")
+            const input2 = document.querySelector("#slider2")
+            value2.textContent = input2.value
+            input2.addEventListener("input", (event) => {
+                value2.textContent = event.target.value
+            })
+    
+        </script>
+
     </body>
 
-    <!-- minimal styling -->
-    <style>
-        form {
-            margin: 1%;
-        }
-
-        div {
-            margin: 1% 0;
-        }
-    </style>
 </html>
