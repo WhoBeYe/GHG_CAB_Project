@@ -13,3 +13,6 @@ psql -U lion -d CAB_database -c "\i sql_files/contains_DDL_script.sql"
 psql -U lion -d CAB_database -c "\i sql_files/vehicle_DDL_script.sql"
 psql -U lion -d CAB_database -c "\i sql_files/example_DML_script.sql"
 
+export FLASK_APP=app.py
+xdg-open http://127.0.0.1:5000
+flask run
