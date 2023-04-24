@@ -28,6 +28,7 @@ bash bash1.sh
 This allows the CSV contents stored in the data_files sub-directory to be read, and 
 stored into the CAB_database based on the DDL amd DML inside the sql scripts. It also opens the UI on the default browser. 
 The "typescript" file is a history file containing the DML commands used for this project.
+Note: when the PSQL queries pop up in the terminal, press q to scroll down in the command line until the web page opens.
 
 
 ## Link to open repository in VSCode Extension
