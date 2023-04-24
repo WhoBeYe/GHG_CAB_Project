@@ -3,7 +3,7 @@
 ## Project Contributors:
 ### Professor: Dr. DeGood
 ### Developers: Emmanuel Pasteur, Madison Bavosa, EJ Gasataya
-### Last Updated: 4/9/23 (for submission on Phase 5a)
+### Last Updated: 4/23/23 (for submission on Phase 5b + Added BASH script for simple loading)
 
 ## Installation Guide
 
