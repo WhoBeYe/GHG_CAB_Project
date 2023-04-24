@@ -1,10 +1,10 @@
 CREATE VIEW ZIP_CODE AS
-SELECT zip, city
+SELECT zip, city, county_name
 FROM zip_code_table;
 
 CREATE VIEW ghg_vmt_merged AS
 SELECT vmt_data_table.mun_name, vmt_data_table.county, vmt_data_table.vmt_total, ghg_data_table.ghg_total
-FROM ghg_data_table INNER JOIN vmt_data_table ON vmt_data_table.mun_name = ghg_data_table.mun_name;
+FROM ghg_data_table INNER JOIN vmt_data_table ON vmt_data_table.mun_name = ghg_data_table.mun_name AND vmt_data_table.county = ghg_data_table.county;
 
 CREATE VIEW zip_code_merged AS
 SELECT ghg_vmt_merged.*, zip_code_table.zip

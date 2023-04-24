@@ -44,7 +44,13 @@ app = Flask(__name__, template_folder='templates', static_folder = 'css')
 def form():
     return render_template('my-form.html')
 
-# Python route for handling ZIP Code query (REMOVE LATER Testing purposes)
+# handle venue POST and serve result web page (TEST- Remove later)
+@app.route('/ghg-handler', methods=['POST'])
+def ghg_handler():
+    rows = connect('SELECT ghg_table_temp.*, contains_2_main.total_personal, contains_2_main.num_evs FROM ghg_table_temp INNER JOIN contains_2_main ON ghg_table_temp.zip = contains_2_main.zip WHERE ghg_total > ' + request.form['ghg_min'] + ' AND ghg_total < ' + request.form['ghg_max'] + ';')
+    heads = ['Municipality', 'Zip Code', 'Total GHG Emissions', 'GHG ID', 'Number of Personal Vehicles', '# of EVs']
+    return render_template('my-result.html', rows=rows, heads=heads)
+
 @app.route('/zip-handler', methods=['POST'])
 def zip_handler():
     rows = connect('SELECT * FROM zip_code WHERE zip = ' + request.form['zip'] + ';')
@@ -70,6 +76,14 @@ def vmt_data_handler():
         'GROUP BY (vmt_table_temp.mun_name, vmt_table_temp.zip, contains_2_main.total_personal, contains_2_main.num_evs);')
     heads = ['Municipality', 'Zip Code', 'VMT-Total', 'Number of Personal Vehicles', '# OF EVs']
     return render_template('my-result.html', rows=rows, heads=heads)
+
+@app.route('/ev_ratio-handler', methods=['POST'])
+def ev_ratio_handler():
+    rows = connect('SELECT contains_2_main.mun_name, contains_2_main.zip, EV_ratio.num_evs, EV_ratio.percentage, contains_2_main.total_personal FROM contains_2_main INNER JOIN EV_ratio ON contains_2_main.zip = EV_ratio.zip WHERE contains_2_main.zip = ' + request.form['zip'] + ';')
+    heads = ['Municipality', 'Zip Code', '# Of EVs', 'Ratio of EVs', 'Number of Personal Vehicles']
+    return render_template('my-result.html', rows=rows, heads=heads)
+
+
 
 # # handle query POST and serve result web page
 # @app.route('/query-handler', methods=['POST'])
