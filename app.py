@@ -47,16 +47,17 @@ app = Flask(__name__, template_folder='templates', static_folder = 'css')
 def form():
     return render_template('my-form.html')
 
-# handle venue POST and serve result web page (TEST- Remove later)
+# Python route for handling GHG Query Range
 @app.route('/ghg-handler', methods=['POST'])
 def ghg_handler():
-    rows = connect('SELECT ghg_table_temp.*, contains_2_main.total_personal, contains_2_main.num_evs ' +
+    rows = connect('SELECT ghg_table_temp.mun_name, ghg_table_temp.zip, CAST (AVG(CAST (ghg_total AS float)) AS float) ghg_total, contains_2_main.total_personal, contains_2_main.num_evs ' +
                    'FROM ghg_table_temp INNER JOIN contains_2_main ' +
-                   'ON ghg_table_temp.zip = contains_2_main.zip ' +
+                   'ON ghg_table_temp.zip = contains_2_main.zip AND ghg_table_temp.mun_name = contains_2_main.mun_name ' +
                    'WHERE ghg_total > ' + request.form['ghg_min'] + ' AND ghg_total < ' + request.form['ghg_max'] + ' ' +
-                   'ORDER BY num_evs;')
+                   'GROUP BY (ghg_table_temp.mun_name, ghg_table_temp.zip, contains_2_main.total_personal, contains_2_main.num_evs) ' +
+                   'ORDER BY ghg_total;')
     
-    heads = ['Municipality', 'Zip Code', 'Total GHG Emissions', 'GHG ID', 'Number of Personal Vehicles', '# of EVs']
+    heads = ['Municipality', 'Zip Code', 'Total GHG Emissions', 'Number of Personal Vehicles', '# of EVs']
     return render_template('my-result.html', rows=rows, heads=heads)
 
 @app.route('/zip-handler', methods=['POST'])

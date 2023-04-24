@@ -46,6 +46,9 @@
             
             <h2>Zip Code Query</h2>
             <form action="/zip-handler" method="POST">
+                <p style="color: #292929">
+                    This section will be used to identify the municipality and county name from a given ZIP Code.
+                </p>
                 <div>
                      Enter the following zip code for query!
                     <input type="text" name="zip">
@@ -78,7 +81,7 @@
             <h2>VMT Usage Range Sliders </h2>
             <p style="color: #292929">
                 The goal of this section is to return the list of municipalities 
-                from a given min and max range for VMT calculations. The values of the sliders is measured in Miles,
+                from a given min and max range for VMT (Vehicle Miles Traveled) calculations. The values of the sliders is measured in Miles,
                 where each slider can range from 0 - (1 x 10e9). The table will also return the ratio between the number of EVs in that municipality, and the total
                 number of personal vehicles as seperate columns.
             </p>
@@ -105,20 +108,20 @@
             <h2>GHG Usage Range Sliders </h2>
             <p style="color: #292929">
                 The goal of this section is to return the list of municipalities 
-                from a given min and max range for GHG Emissions. The values of the sliders is measured in Metric Tons Carbon Dioxide,
-                where each slider can range from 0 - (1 x 10e9). The table will also return the ratio between the number of EVs in that municipality, and the total
+                from a given min and max range for GHG (Greenhouse Gas) Emissions. The values of the sliders is measured in Metric Tons Carbon Dioxide,
+                where each slider can range from 0 - (1000000). The table will also return the ratio between the number of EVs in that municipality, and the total
                 number of personal vehicles as seperate columns.
             </p>
             <form action="/ghg-handler" method="POST">
                 <div>
                     Enter MIN. Range for GHG Usage
-                    <input id = "slider3" type="range" name="ghg_min" min='0' max='1000000000' step="100000">
+                    <input id = "slider3" type="range" name="ghg_min" min='0' max='1000000' step="50000">
                     <p>Min GHG Range: <output style="color:#9E1D20;"id="value3"></output></p>
                 </div>
                 <br>
                 <div>
                     Enter MAX. Range for GHG Usage
-                    <input id = "slider4" type="range" name="ghg_max" min='0' max='1000000000' step="100000">
+                    <input id = "slider4" type="range" name="ghg_max" min='0' max='1000000' step="50000">
                     <p>MAX GHG Range: <output style="color:#9E1D20;"id="value4"></output></p>
                 </div>
                     <button type="submit" class="btn btn-primary">Submit GHG Data</button>
