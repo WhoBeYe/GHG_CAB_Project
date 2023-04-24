@@ -50,14 +50,19 @@ def form():
 # handle venue POST and serve result web page (TEST- Remove later)
 @app.route('/ghg-handler', methods=['POST'])
 def ghg_handler():
-    rows = connect('SELECT ghg_table_temp.*, contains_2_main.total_personal, contains_2_main.num_evs FROM ghg_table_temp INNER JOIN contains_2_main ON ghg_table_temp.zip = contains_2_main.zip WHERE ghg_total > ' + request.form['ghg_min'] + ' AND ghg_total < ' + request.form['ghg_max'] + ';')
+    rows = connect('SELECT ghg_table_temp.*, contains_2_main.total_personal, contains_2_main.num_evs ' +
+                   'FROM ghg_table_temp INNER JOIN contains_2_main ' +
+                   'ON ghg_table_temp.zip = contains_2_main.zip ' +
+                   'WHERE ghg_total > ' + request.form['ghg_min'] + ' AND ghg_total < ' + request.form['ghg_max'] + ' ' +
+                   'ORDER BY num_evs;')
+    
     heads = ['Municipality', 'Zip Code', 'Total GHG Emissions', 'GHG ID', 'Number of Personal Vehicles', '# of EVs']
     return render_template('my-result.html', rows=rows, heads=heads)
 
 @app.route('/zip-handler', methods=['POST'])
 def zip_handler():
     rows = connect('SELECT * FROM zip_code WHERE zip = ' + request.form['zip'] + ';')
-    heads = ['Zip Code', 'City Name']
+    heads = ['Zip Code', 'City Name (Municipality)', 'County']
     return render_template('my-result.html', rows=rows, heads=heads)
 
 
@@ -71,6 +76,7 @@ def vmt_data_handler():
         'WHERE vmt_total > ' + request.form['min_vmt']  + ' AND vmt_total < ' + request.form['max_vmt'] + ' ' +
         'GROUP BY (vmt_table_temp.mun_name, vmt_table_temp.zip, contains_2_main.total_personal, contains_2_main.num_evs) ' +
         'ORDER BY num_evs;')
+    
     heads = ['Municipality', 'Zip Code', 'VMT-Total', 'Number of Personal Vehicles', '# OF EVs']
     return render_template('my-result.html', rows=rows, heads=heads)
 

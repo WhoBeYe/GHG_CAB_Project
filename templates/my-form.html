@@ -60,7 +60,7 @@
         <div class = "text-center query-box rounded">
             
             <h2>EV Ratio Query</h2>
-            <form action="/ev_ratio_handler" method="POST">
+            <form action="/ev_ratio-handler" method="POST">
                 <div>
                     Enter a zip code to obtain EV usage:
                     <input type="text" name="zip">
@@ -98,6 +98,33 @@
             </form>
         </div>
 
+        <!-- Div that contains SLIDERS as query input to grab the ranges of GHG calulated, and list all the municipalities for each
+        that fall within the min/max range of the sliders. -->
+        <div class = "text-center query-box rounded">
+
+            <h2>GHG Usage Range Sliders </h2>
+            <p style="color: #292929">
+                The goal of this section is to return the list of municipalities 
+                from a given min and max range for GHG Emissions. The values of the sliders is measured in Metric Tons Carbon Dioxide,
+                where each slider can range from 0 - (1 x 10e9). The table will also return the ratio between the number of EVs in that municipality, and the total
+                number of personal vehicles as seperate columns.
+            </p>
+            <form action="/ghg-handler" method="POST">
+                <div>
+                    Enter MIN. Range for GHG Usage
+                    <input id = "slider3" type="range" name="ghg_min" min='0' max='1000000000' step="100000">
+                    <p>Min GHG Range: <output style="color:#9E1D20;"id="value3"></output></p>
+                </div>
+                <br>
+                <div>
+                    Enter MAX. Range for GHG Usage
+                    <input id = "slider4" type="range" name="ghg_max" min='0' max='1000000000' step="100000">
+                    <p>MAX GHG Range: <output style="color:#9E1D20;"id="value4"></output></p>
+                </div>
+                    <button type="submit" class="btn btn-primary">Submit GHG Data</button>
+            </form>
+        </div>
+
         <!-- JavaScript code for handling slider logic (Get range values) -->
         <script>
             
@@ -115,6 +142,22 @@
             value2.textContent = input2.value
             input2.addEventListener("input", (event) => {
                 value2.textContent = event.target.value
+            })
+
+            // Slider Event for the MIN GHG usage
+            const value3 = document.querySelector("#value3")
+            const input3 = document.querySelector("#slider3")
+            value3.textContent = input3.value
+            input3.addEventListener("input", (event) => {
+                value3.textContent = event.target.value
+            })
+
+             // Slider Event for the MAX GHG usage
+             const value4 = document.querySelector("#value4")
+            const input4 = document.querySelector("#slider4")
+            value4.textContent = input4.value
+            input4.addEventListener("input", (event) => {
+                value4.textContent = event.target.value
             })
     
         </script>
