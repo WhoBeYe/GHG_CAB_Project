@@ -62,8 +62,9 @@
             <h2>EV Ratio Query</h2>
             <form action="/ev_ratio_handler" method="POST">
                 <div>
-                    Enter a zip code to obtain EV usage
+                    Enter a zip code to obtain EV usage:
                     <input type="text" name="zip">
+                    
                 </div>
                     <br>
                     <button type="submit" class="btn btn-primary">Submit EV Ratio Data</button>
@@ -74,12 +75,12 @@
         that fall within the min/max range of the sliders. -->
         <div class = "text-center query-box rounded">
 
-            <h2>VMT Usage from ZIP Code </h2>
+            <h2>VMT Usage Range Sliders </h2>
             <p style="color: #292929">
                 The goal of this section is to return the list of municipalities 
                 from a given min and max range for VMT calculations. The values of the sliders is measured in Miles,
                 where each slider can range from 0 - (1 x 10e9). The table will also return the ratio between the number of EVs in that municipality, and the total
-                number of personal vehicles in the municipality.
+                number of personal vehicles as seperate columns.
             </p>
             <form action="/vmt_data_handler" method="POST">
                 <div>
