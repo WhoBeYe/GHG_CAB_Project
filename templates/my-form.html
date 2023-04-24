@@ -58,22 +58,6 @@
             </form>
         </div>
 
-        <!-- Div that contains entry box for handling EV Ratio queries. User will enter the zip code and it will return the calculated
-        RATIO based on how many personal vehicles are there in each municipality. -->
-        <div class = "text-center query-box rounded">
-            
-            <h2>EV Ratio Query</h2>
-            <form action="/ev_ratio-handler" method="POST">
-                <div>
-                    Enter a zip code to obtain EV usage:
-                    <input type="text" name="zip">
-                    
-                </div>
-                    <br>
-                    <button type="submit" class="btn btn-primary">Submit EV Ratio Data</button>
-            </form>
-        </div>
-
         <!-- Div that contains SLIDERS as query input to grab the ranges of VMT calulated, and list all the municipalities for each
         that fall within the min/max range of the sliders. -->
         <div class = "text-center query-box rounded">
@@ -95,7 +79,7 @@
                 <div>
                     Enter MAX. Range for VMT Usage
                     <input id = "slider2" type="range" name="max_vmt" min='0' max='1000000000' step="100000">
-                    <p>MAX VMT Range: <output style="color:#9E1D20;"id="value2"></output></p>
+                    <p>Max VMT Range: <output style="color:#9E1D20;"id="value2"></output></p>
                 </div>
                     <button type="submit" class="btn btn-primary">Submit VMT Data</button>
             </form>
@@ -122,7 +106,7 @@
                 <div>
                     Enter MAX. Range for GHG Usage
                     <input id = "slider4" type="range" name="ghg_max" min='0' max='1000000' step="50000">
-                    <p>MAX GHG Range: <output style="color:#9E1D20;"id="value4"></output></p>
+                    <p>Max GHG Range: <output style="color:#9E1D20;"id="value4"></output></p>
                 </div>
                     <button type="submit" class="btn btn-primary">Submit GHG Data</button>
             </form>

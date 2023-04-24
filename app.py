@@ -50,14 +50,15 @@ def form():
 # Python route for handling GHG Query Range
 @app.route('/ghg-handler', methods=['POST'])
 def ghg_handler():
-    rows = connect('SELECT ghg_table_temp.mun_name, ghg_table_temp.zip, CAST (AVG(CAST (ghg_total AS float)) AS float) ghg_total, contains_2_main.total_personal, contains_2_main.num_evs ' +
+    rows = connect('SELECT ghg_table_temp.mun_name, ghg_table_temp.zip, CAST (AVG(CAST (ghg_total AS float)) AS float) ghg_total, contains_2_main.total_personal, contains_2_main.num_evs, EV_ratio.percentage ' +
                    'FROM ghg_table_temp INNER JOIN contains_2_main ' +
                    'ON ghg_table_temp.zip = contains_2_main.zip AND ghg_table_temp.mun_name = contains_2_main.mun_name ' +
+                   'INNER JOIN EV_ratio ON EV_ratio.zip = ghg_table_temp.zip ' +
                    'WHERE ghg_total > ' + request.form['ghg_min'] + ' AND ghg_total < ' + request.form['ghg_max'] + ' ' +
-                   'GROUP BY (ghg_table_temp.mun_name, ghg_table_temp.zip, contains_2_main.total_personal, contains_2_main.num_evs) ' +
+                   'GROUP BY (ghg_table_temp.mun_name, ghg_table_temp.zip, contains_2_main.total_personal, contains_2_main.num_evs, EV_ratio.percentage) ' +
                    'ORDER BY ghg_total;')
     
-    heads = ['Municipality', 'Zip Code', 'Total GHG Emissions', 'Number of Personal Vehicles', '# of EVs']
+    heads = ['Municipality', 'Zip Code', 'Total GHG Emissions', 'Number of Personal Vehicles', '# of EVs', 'Ratio of EVs %']
     return render_template('my-result.html', rows=rows, heads=heads)
 
 @app.route('/zip-handler', methods=['POST'])
@@ -71,30 +72,23 @@ def zip_handler():
 @app.route('/vmt_data_handler', methods=['POST'])
 def vmt_data_handler():
     rows = connect(
-        'SELECT vmt_table_temp.mun_name, vmt_table_temp.zip, CAST (AVG(CAST (vmt_total AS integer)) AS integer) vmt_total, contains_2_main.total_personal, contains_2_main.num_evs ' + 
+        'SELECT vmt_table_temp.mun_name, vmt_table_temp.zip, CAST (AVG(CAST (vmt_total AS integer)) AS integer) vmt_total, contains_2_main.total_personal, contains_2_main.num_evs, EV_ratio.percentage ' + 
         'FROM vmt_table_temp INNER JOIN contains_2_main ' + 
         'ON vmt_table_temp.zip = contains_2_main.zip AND vmt_table_temp.mun_name = contains_2_main.mun_name ' +
+        'INNER JOIN EV_ratio ON EV_ratio.zip = vmt_table_temp.zip ' +
         'WHERE vmt_total > ' + request.form['min_vmt']  + ' AND vmt_total < ' + request.form['max_vmt'] + ' ' +
-        'GROUP BY (vmt_table_temp.mun_name, vmt_table_temp.zip, contains_2_main.total_personal, contains_2_main.num_evs) ' +
-        'ORDER BY num_evs;')
+        'GROUP BY (vmt_table_temp.mun_name, vmt_table_temp.zip, contains_2_main.total_personal, contains_2_main.num_evs, EV_ratio.percentage) ' +
+        'ORDER BY vmt_total;')
     
-    heads = ['Municipality', 'Zip Code', 'VMT-Total', 'Number of Personal Vehicles', '# OF EVs']
+    heads = ['Municipality', 'Zip Code', 'VMT-Total', 'Number of Personal Vehicles', '# OF EVs', 'Ratio of EVs %']
     return render_template('my-result.html', rows=rows, heads=heads)
 
 # Python route for handling ev-ratio queries
-@app.route('/ev_ratio-handler', methods=['POST'])
-def ev_ratio_handler():
-    rows = connect('SELECT contains_2_main.mun_name, contains_2_main.zip, EV_ratio.num_evs, EV_ratio.percentage, contains_2_main.total_personal FROM contains_2_main INNER JOIN EV_ratio ON contains_2_main.zip = EV_ratio.zip WHERE contains_2_main.zip = ' + request.form['zip'] + ';')
-    heads = ['Municipality', 'Zip Code', '# Of EVs', 'Ratio of EVs', 'Number of Personal Vehicles']
-    return render_template('my-result.html', rows=rows, heads=heads)
-
-
-
-# # handle query POST and serve result web page
-# @app.route('/query-handler', methods=['POST'])
-# def query_handler():
-#     rows = connect(request.form['query'])
-#     return render_template('my-result.html', rows=rows)
+# @app.route('/ev_ratio-handler', methods=['POST'])
+# def ev_ratio_handler():
+#     rows = connect('SELECT contains_2_main.mun_name, contains_2_main.zip, EV_ratio.num_evs, EV_ratio.percentage, contains_2_main.total_personal FROM contains_2_main INNER JOIN EV_ratio ON contains_2_main.zip = EV_ratio.zip WHERE contains_2_main.zip = ' + request.form['zip'] + ';')
+#     heads = ['Municipality', 'Zip Code', '# Of EVs', 'Ratio of EVs %', 'Number of Personal Vehicles']
+#     return render_template('my-result.html', rows=rows, heads=heads)
 
 if __name__ == '__main__':
     app.run(debug = True)
