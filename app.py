@@ -50,7 +50,7 @@ def form():
 # Python route for handling GHG Query Range
 @app.route('/ghg-handler', methods=['POST'])
 def ghg_handler():
-    rows = connect('SELECT ghg_table_temp.mun_name, ghg_table_temp.zip, CAST (AVG(CAST (ghg_total AS float)) AS float) ghg_total, contains_2_main.total_personal, contains_2_main.num_evs, EV_ratio.percentage ' +
+    rows = connect('SELECT ghg_table_temp.mun_name, ghg_table_temp.zip, CAST (AVG(CAST (ghg_total AS float)) AS float) ghg_total, contains_2_main.total_personal, contains_2_main.num_evs, ROUND(EV_ratio.percentage, 2) ' +
                    'FROM ghg_table_temp INNER JOIN contains_2_main ' +
                    'ON ghg_table_temp.zip = contains_2_main.zip AND ghg_table_temp.mun_name = contains_2_main.mun_name ' +
                    'INNER JOIN EV_ratio ON EV_ratio.zip = ghg_table_temp.zip ' +
@@ -72,7 +72,7 @@ def zip_handler():
 @app.route('/vmt_data_handler', methods=['POST'])
 def vmt_data_handler():
     rows = connect(
-        'SELECT vmt_table_temp.mun_name, vmt_table_temp.zip, CAST (AVG(CAST (vmt_total AS integer)) AS integer) vmt_total, contains_2_main.total_personal, contains_2_main.num_evs, EV_ratio.percentage ' + 
+        'SELECT vmt_table_temp.mun_name, vmt_table_temp.zip, CAST (AVG(CAST (vmt_total AS integer)) AS integer) vmt_total, contains_2_main.total_personal, contains_2_main.num_evs, ROUND(EV_ratio.percentage, 2) ' + 
         'FROM vmt_table_temp INNER JOIN contains_2_main ' + 
         'ON vmt_table_temp.zip = contains_2_main.zip AND vmt_table_temp.mun_name = contains_2_main.mun_name ' +
         'INNER JOIN EV_ratio ON EV_ratio.zip = vmt_table_temp.zip ' +
