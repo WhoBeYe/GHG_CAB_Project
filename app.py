@@ -78,7 +78,7 @@ def vmt_data_handler():
         'INNER JOIN EV_ratio ON EV_ratio.zip = vmt_table_temp.zip ' +
         'WHERE vmt_total > ' + request.form['min_vmt']  + ' AND vmt_total < ' + request.form['max_vmt'] + ' ' +
         'GROUP BY (vmt_table_temp.mun_name, vmt_table_temp.zip, contains_2_main.total_personal, contains_2_main.num_evs, EV_ratio.percentage) ' +
-        'ORDER BY vmt_total;')
+        'ORDER BY vmt_total DESC;')
     
     heads = ['Municipality', 'Zip Code', 'VMT-Total', 'Number of Personal Vehicles', '# OF EVs', 'Ratio of EVs %']
     return render_template('my-result.html', rows=rows, heads=heads)
