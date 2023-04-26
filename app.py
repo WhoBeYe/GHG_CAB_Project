@@ -56,7 +56,7 @@ def ghg_handler():
                    'INNER JOIN EV_ratio ON EV_ratio.zip = ghg_table_temp.zip ' +
                    'WHERE ghg_total > ' + request.form['ghg_min'] + ' AND ghg_total < ' + request.form['ghg_max'] + ' ' +
                    'GROUP BY (ghg_table_temp.mun_name, ghg_table_temp.zip, contains_2_main.total_personal, contains_2_main.num_evs, EV_ratio.percentage) ' +
-                   'ORDER BY ghg_total;')
+                   'ORDER BY ghg_total DESC;')
     
     heads = ['Municipality', 'Zip Code', 'Total GHG Emissions', 'Number of Personal Vehicles', '# of EVs', 'Ratio of EVs %']
     return render_template('my-result.html', rows=rows, heads=heads)
